@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Files</h1>
+{% for item in data.children %}
+{% if item.name == "elements" %}
+<div class="row">
+	{% for file in item.children %}
+	<div class="col-sm-6 col-md-4">
+		<div class="thumbnail">
+			{% for preview in file.components %}
+			{% if preview.type == "image/png" %}
+			<img src="/preview/{{ data.id }}/{{ preview.id }}/:rendition;page=0;size=500?access_token={{ access_token }}&require={{ preview.type }}" alt="preview">
+			{% endif %}
+			{% endfor %}
+			<div class="caption">
+				<h3>{{ file.name }}</h3>
+				<p>
+					{% for preview in file.components %}
+					{% if preview.type != "image/png" %}
+					<a class="btn btn-primary" href="/preview/{{ data.id }}/{{ preview.id }}/;page=0;size=500?access_token={{ access_token }}&require={{ preview.type }}">
+						{{ preview.type }} {{ preview['contour#elementIdentifier'] }}
+					</a>
+					{% endif %}
+					{% endfor %}
+				</p>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+{% endif %}
+{% endfor %}
+
+{% endblock %}

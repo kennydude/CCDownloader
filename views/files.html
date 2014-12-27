@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Libraries</h1>
+<ul>
+{% for item in data.children %}
+<li><a href="/files/{{ item.name }}?access_token={{ access_token }}">{{ item.name }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}
